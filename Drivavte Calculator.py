@@ -89,6 +89,8 @@ def fractions(term):
             if "x" in denominator:
                 driv = denominators(numerator,denominator)
                 return driv
+    else:
+        return" "
 
     
 
@@ -124,7 +126,7 @@ def simplecase(term):
 def denominators(num,denom):
         if "x^" in denom:
             if denom[denom.rfind("^")+1] in string.ascii_lowercase:
-                return "[" +"-" denom[denom.rfind("^")+1] + num + "/" + denom + "+1"
+                return "[" +"-" + denom[denom.rfind("^")+1] + num + "/" + denom + "+1"
             else:
                 number = int(denom[denom.rfind("^")+1:])
                 number2 = str(number + 1)
