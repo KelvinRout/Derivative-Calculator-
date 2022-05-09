@@ -2,8 +2,9 @@ import math, string
 def dirvivatvecalc():
     print("Welcome to the derivative calculator!")
     print("Please enter what you want the derivative to be taken from")
-    print("use: X as your varible, sqrt() for squareroot,^ for squaring, * for timesing different functions")
+    print("use: X as your varible,^ for squaring")
     print("And use: [/] for fractions EX: [1/2] or [1/2x^2] and to denoate a negative fraction [-1/2]")
+    print("Be warned this is very unstable if something dosen't work try it a few other ways if it still dosent work it won't work")
     driv = input(":")
     driv = driv.lower()
     finalanswer = ("")
@@ -20,7 +21,6 @@ def dirvivatvecalc():
             if i =="[" or driv[0]=="[":
                 checker = checker + 1
                 term1 = driv[valuechecker:driv.find("]")+1]
-                print(term1 ,"testing")
                 partANSWER = fractions(term1)
                 if signchecker == False:
                     if valuechecker == 0:
@@ -42,7 +42,6 @@ def dirvivatvecalc():
                 else:
                     #tells number of times this ran so can know if missing thing
                     term1 = driv[valuechecker:counter]
-                    print(term1 , "2xwdawd")
                     partANSWER = simplecase(term1)
                     if signchecker == False:
                         if valuechecker == 0:
@@ -69,7 +68,7 @@ def dirvivatvecalc():
             if driv[lastdriv-1] == "-":
                 finalanswer = finalanswer + "-" + partANSWER
             else:
-                finalanswer = finalanswer + "" + partANSWER
+                finalanswer = finalanswer + " " + partANSWER
         print(finalanswer.upper())
 
 
@@ -80,7 +79,7 @@ def fractions(term):
     denominator =term[startpoint+1:]
     if "x" in term:
         if "x" in numerator and "x" in denominator:
-            return ("uhoh")
+            return ("This will not work")
         else:
             pass
             if "x" in numerator:
@@ -88,7 +87,8 @@ def fractions(term):
                 return "[" + driv + "/" + denominator + "]"
 
             if "x" in denominator:
-                return("uhohdenominator")
+                driv = denominators(numerator,denominator)
+                return driv
 
     
 
@@ -120,3 +120,28 @@ def simplecase(term):
                 return term[:term.find("x")]
     else:
         return ""
+
+def denominators(num,denom):
+        if "x^" in denom:
+            if denom[denom.rfind("^")+1] in string.ascii_lowercase:
+                return "[" +"-" denom[denom.rfind("^")+1] + num + "/" + denom + "+1"
+            else:
+                number = int(denom[denom.rfind("^")+1:])
+                number2 = str(number + 1)
+                #find what are new ^ value will be 
+                if number2 == "0":
+                    return "[" +"-"+ num + "/" + "1" + "]"
+                else:
+                    pass
+                if denom[:denom.find("x")] not in string.ascii_lowercase:
+                    return( "["+"-" + str(number) + "*" + num + "/"+str(number) + "x^" + number2 + "]")
+                else:
+                    if denom[0] == "x":
+                        return( "[" "-" + str(number) + "*" + num + "/" + "x^" + number2 + "]")
+                    else:
+                        return "[" +"-"+ str(number)+ term[0]+ "*" + num + "/" + "x^" + number2 + "]"
+        else:
+            if denom == "x":
+                return "["+"-" + num + "/" + "x^2" + "]"
+            else:
+                pass
